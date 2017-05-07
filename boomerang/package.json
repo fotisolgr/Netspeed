@@ -1,0 +1,15 @@
+{
+  "name": "html",
+  "version": "1.0.0",
+  "main": "boomerang-post.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "network-js": "^2.1.0"
+  },
+  "devDependencies": {},
+  "description": ""
+}
