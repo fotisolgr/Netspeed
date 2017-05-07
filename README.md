@@ -49,3 +49,4 @@ Only modern browsers are supported (IE11, latest Edge, latest Chrome, latest Fir
 ***
 ## License: 
 **GNU General Public License v3.0**
+***
