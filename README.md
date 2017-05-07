@@ -47,3 +47,4 @@ Only modern browsers are supported (IE11, latest Edge, latest Chrome, latest Fir
 * If you want to use the [speedtest](https://github.com/adolfintel/speedtest) implementation you have to add the files located in **speedworker** folder into your web server.
 
 ***
+## License: GNU General Public License v3.0
