@@ -6,8 +6,8 @@
 //-----------------------------------------------------------------------------------------------------------------
 BOOMR.subscribe('before_beacon', function(o) {
 
-if(o.lat){
-  ping = o.lat; 
+if(o.t_done){
+  ping = o.t_done; 
 }
 
 if(o.bw) { 
