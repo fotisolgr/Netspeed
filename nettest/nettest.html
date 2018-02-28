@@ -1,19 +1,32 @@
-<!DOCTYPE html>
+
 <html>
-<head>
-<meta charset="UTF-8">
-	<title>Nettest</title>
+  <head>
+	<title>WiFiMon test measurement page</title>
 	<script type="text/javascript" src="jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="nettest-swfobject.js"></script>
-	<script type="text/javascript" src="nettest-post.js"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript" hostingWebsite="http" id="settings" agentIp="127.0.0.1" imagesLocation="images1/" cookieTimeInMinutes="0.01" 
+		src="runtest.js" defer></script>
 		
-	
+	<!--meta http-equiv="refresh" content="30" -->
 	
   </head>
-<body>
-<h1>Nettest Speedtest</h1>
-
+<body><h1>Sample https page for WiFiMon measurements</h1>
+<h4>Screenshot of the embedded Javascript code to perform measurements:</h4>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
 	
-</body>
-</html>
+	<strong>Notes:</strong>
+    <ul>
+        <li><strong><var>agentIp (required)</var>:</strong> IP address (or domain name) of the server where the Java agent is installed</li>
+        <li><strong><var>imagesLocation (optional)</var>:</strong> Public link to the folder where the images are downloaded to perform the nettest measurements. If empty, "https://vm3-gn3-sa2t5.vm.grnet.gr/wifimon/images/" is assumed</li>
+        <li><strong><var>cookieTimeInMinutes (optional)</var>:</strong> Duration time (in minutes) to set the cookie in order to prevent repeated measurements. If empty, "1.5" is assumed</li>
+		<li><strong>Measurements are relative to the location of the server that hosts the images</strong>. In this case the server is hosted in Athens, Greece</li>
+    </ul>
+	
+	<h4>Links:</h4>
+	<ul>
+        <li><a href="https://vm11-gn3-sa2t5.vm.grnet.gr:8441/login" target="_blank">WiFiMon Web-UI</a></li>
+    </ul>
+	
+</body></html>
 
