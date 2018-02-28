@@ -1,0 +1,46 @@
+excelDates_boomerang = xlsread('8m.xls', 'A2:A78');
+matlabDates_boomerang = datenum('30-Dec-1899') + excelDates_boomerang;
+datestr(matlabDates_boomerang, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_nettest = xlsread('8m.xls', 'A79:A157');
+matlabDates_nettest = datenum('30-Dec-1899') + excelDates_nettest;
+datestr(matlabDates_nettest, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_ookla = xlsread('8m.xls', 'A158:A218');
+matlabDates_ookla = datenum('30-Dec-1899') + excelDates_ookla;
+datestr(matlabDates_ookla, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_speedtest = xlsread('8m.xls', 'A219:A297');
+matlabDates_speedtest = datenum('30-Dec-1899') + excelDates_speedtest;
+datestr(matlabDates_speedtest, 'yyyy-mm-dd HH:MM:SS');
+
+download_boomerang = xlsread('8m.xls', 'B2:B78');
+download_nettest = xlsread('8m.xls', 'B79:B157');
+download_ookla = xlsread('8m.xls', 'B158:B218');
+download_speedtest = xlsread('8m.xls', 'B219:B297');
+
+
+plot(matlabDates_boomerang, download_boomerang,'-ro','MarkerIndices',1:1:length(matlabDates_boomerang));     
+hold on
+plot(matlabDates_nettest, download_nettest,'-g*','MarkerIndices',1:1:length(matlabDates_nettest));      
+hold on
+plot(matlabDates_ookla, download_ookla,'-bs','MarkerIndices',1:1:length(matlabDates_ookla));     
+hold on
+plot(matlabDates_speedtest, download_speedtest,'-k.','MarkerIndices',1:1:length(matlabDates_speedtest));
+hold off 
+datetick('x','yyyy-mm-dd HH:MM:SS');                
+legend('Download Throughput (Boomerang)','Download Throughput (NetTest)','Download Throughput (Ookla)','Download Throughput (Speedtest)')
+title('Download Throughput per test Type 8m of distance')
+xlabel('Time (yyyy-mm-dd HH:MM:SS)')
+ylabel('Mbps')
+
+
+
+
+
+
+
+
+
+
+
