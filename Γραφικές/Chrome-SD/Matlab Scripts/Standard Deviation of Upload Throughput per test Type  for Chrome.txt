@@ -1,0 +1,75 @@
+excelDates_boomerang = xlsread('Chrome-SD.xls', 'A2:A123');
+matlabDates_boomerang = datenum('30-Dec-1899') + excelDates_boomerang;
+datestr(matlabDates_boomerang, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_nettest = xlsread('Chrome-SD.xls', 'A124:A245');
+matlabDates_nettest = datenum('30-Dec-1899') + excelDates_nettest;
+datestr(matlabDates_nettest, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_ookla = xlsread('Chrome-SD.xls', 'A246:A356');
+matlabDates_ookla = datenum('30-Dec-1899') + excelDates_ookla;
+datestr(matlabDates_ookla, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_speedtest = xlsread('Chrome-SD.xls', 'A357:A480');
+matlabDates_speedtest = datenum('30-Dec-1899') + excelDates_speedtest;
+datestr(matlabDates_speedtest, 'yyyy-mm-dd HH:MM:SS');
+
+
+upload_boomerang = xlsread('Chrome-SD.xls', 'C2:C123');
+upload_nettest = xlsread('Chrome-SD.xls', 'C124:C245');
+upload_ookla = xlsread('Chrome-SD.xls', 'C246:C356');
+upload_speedtest = xlsread('Chrome-SD.xls', 'C357:C480');
+
+mean_upload_ookla = mean(upload_ookla);
+
+%========================================================================================
+square_distance_boomerang = zeros(122,1);
+
+for n = 1:122
+square_distance_boomerang(n) = (upload_boomerang(n)-mean_upload_ookla)^2;
+end
+
+sum_square_distance_boomerang = 0.0;
+for n = 1:122
+sum_square_distance_boomerang = sum_square_distance_boomerang+square_distance_boomerang(n);
+end
+%========================================================================================
+square_distance_nettest = zeros(122,1);
+
+for n = 1:122
+square_distance_nettest(n) = (upload_nettest(n)-mean_upload_ookla)^2;
+end
+
+sum_square_distance_nettest = 0.0;
+for n = 1:122
+sum_square_distance_nettest = sum_square_distance_nettest+square_distance_nettest(n);
+end
+%========================================================================================
+square_distance_speedtest = zeros(124,1);
+
+for n = 1:124
+square_distance_speedtest(n) = (upload_speedtest(n)-mean_upload_ookla)^2;
+end
+
+sum_square_distance_speedtest = 0.0;
+for n = 1:124
+sum_square_distance_speedtest = sum_square_distance_speedtest+square_distance_speedtest(n);
+end
+%========================================================================================
+
+A = sqrt(sum_square_distance_boomerang/122)*ones(size(matlabDates_boomerang)); %Std boomerang
+B = sqrt(sum_square_distance_nettest/122)*ones(size(matlabDates_nettest)); %Std nettest
+C = sqrt(sum_square_distance_speedtest/124)*ones(size(matlabDates_speedtest)); %Std speedtest
+
+errorbar(matlabDates_boomerang,upload_boomerang,A,'horizontal','-ro');
+hold on
+errorbar(matlabDates_nettest,upload_nettest,B,'horizontal','-g*');
+hold on
+errorbar(matlabDates_speedtest,upload_speedtest,C,'horizontal','-k.');
+hold off
+
+datetick('x','yyyy-mm-dd HH:MM:SS');                
+legend('Standard Deviation of Upload Throughput (Boomerang)','Standard Deviation of Upload Throughput (NetTest)','Standard Deviation of Upload Throughput (Speedtest)')
+title('Standard Deviation of Upload Throughput per test Type for Chrome')
+xlabel('Time (yyyy-mm-dd HH:MM:SS)')
+ylabel('Mbps')

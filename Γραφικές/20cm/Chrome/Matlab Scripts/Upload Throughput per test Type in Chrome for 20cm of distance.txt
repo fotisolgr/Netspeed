@@ -1,0 +1,44 @@
+excelDates_boomerang = xlsread('Chrome(20cm).xls', 'A1:A26');
+matlabDates_boomerang = datenum('30-Dec-1899') + excelDates_boomerang;
+datestr(matlabDates_boomerang, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_nettest = xlsread('Chrome(20cm).xls', 'A27:A51');
+matlabDates_nettest = datenum('30-Dec-1899') + excelDates_nettest;
+datestr(matlabDates_nettest, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_ookla = xlsread('Chrome(20cm).xls', 'A52:A76');
+matlabDates_ookla = datenum('30-Dec-1899') + excelDates_ookla;
+datestr(matlabDates_ookla, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_speedtest = xlsread('Chrome(20cm).xls', 'A77:A101');
+matlabDates_speedtest = datenum('30-Dec-1899') + excelDates_speedtest;
+datestr(matlabDates_speedtest, 'yyyy-mm-dd HH:MM:SS');
+
+upload_boomerang = xlsread('Chrome(20cm).xls', 'C1:C26');
+upload_nettest = xlsread('Chrome(20cm).xls', 'C27:C51');
+upload_ookla = xlsread('Chrome(20cm).xls', 'C52:C76');
+upload_speedtest = xlsread('Chrome(20cm).xls', 'C77:C101');
+
+
+plot(matlabDates_boomerang, upload_boomerang,'-ro','MarkerIndices',1:1:length(matlabDates_boomerang));     
+hold on
+plot(matlabDates_nettest, upload_nettest,'-g*','MarkerIndices',1:1:length(matlabDates_nettest));      
+hold on
+plot(matlabDates_ookla, upload_ookla,'-bs','MarkerIndices',1:1:length(matlabDates_ookla));     
+hold on
+plot(matlabDates_speedtest, upload_speedtest,'-k.','MarkerIndices',1:1:length(matlabDates_speedtest));
+hold off 
+datetick('x','HH:MM:SS');                
+legend('Upload Throughput (Boomerang)','Upload Throughput (NetTest)','Upload Throughput (Ookla)','Upload Throughput (Speedtest)')
+title('Upload Throughput per test Type in Chrome for 20cm of distance')
+xlabel('Time (HH:MM:SS)')
+ylabel('Mbps')
+
+
+
+
+
+
+
+
+

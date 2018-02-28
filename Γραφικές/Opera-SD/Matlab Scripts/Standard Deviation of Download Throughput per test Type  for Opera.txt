@@ -1,0 +1,72 @@
+excelDates_boomerang = xlsread('Opera-SD.xls', 'A2:A149');
+matlabDates_boomerang = datenum('30-Dec-1899') + excelDates_boomerang;
+datestr(matlabDates_boomerang, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_nettest = xlsread('Opera-SD.xls', 'A150:A311');
+matlabDates_nettest = datenum('30-Dec-1899') + excelDates_nettest;
+datestr(matlabDates_nettest, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_ookla = xlsread('Opera-SD.xls', 'A312:A436');
+matlabDates_ookla = datenum('30-Dec-1899') + excelDates_ookla;
+datestr(matlabDates_ookla, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_speedtest = xlsread('Opera-SD.xls', 'A437:A602');
+matlabDates_speedtest = datenum('30-Dec-1899') + excelDates_speedtest;
+datestr(matlabDates_speedtest, 'yyyy-mm-dd HH:MM:SS');
+
+download_boomerang = xlsread('Opera-SD.xls', 'B2:B149');
+download_nettest = xlsread('Opera-SD.xls', 'B150:B311');
+download_ookla = xlsread('Opera-SD.xls', 'B312:B436');
+download_speedtest = xlsread('Opera-SD.xls', 'B437:B602');
+mean_download_ookla = mean(download_ookla);
+
+%========================================================================================
+square_distance_boomerang = zeros(148,1);
+
+for n = 1:148
+square_distance_boomerang(n) = (download_boomerang(n)-mean_download_ookla)^2;
+end
+
+sum_square_distance_boomerang = 0.0;
+for n = 1:148
+sum_square_distance_boomerang = sum_square_distance_boomerang+square_distance_boomerang(n);
+end
+%========================================================================================
+square_distance_nettest = zeros(162,1);
+
+for n = 1:162
+square_distance_nettest(n) = (download_nettest(n)-mean_download_ookla)^2;
+end
+
+sum_square_distance_nettest = 0.0;
+for n = 1:162
+sum_square_distance_nettest = sum_square_distance_nettest+square_distance_nettest(n);
+end
+%========================================================================================
+square_distance_speedtest = zeros(166,1);
+
+for n = 1:166
+square_distance_speedtest(n) = (download_speedtest(n)-mean_download_ookla)^2;
+end
+
+sum_square_distance_speedtest = 0.0;
+for n = 1:166
+sum_square_distance_speedtest = sum_square_distance_speedtest+square_distance_speedtest(n);
+end
+%========================================================================================
+
+A = sqrt(sum_square_distance_boomerang/148)*ones(size(matlabDates_boomerang)); %Std boomerang
+B = sqrt(sum_square_distance_nettest/162)*ones(size(matlabDates_nettest)); %Std nettest
+C = sqrt(sum_square_distance_speedtest/166)*ones(size(matlabDates_speedtest)); %Std speedtest
+errorbar(matlabDates_boomerang,download_boomerang,A,'horizontal','-ro');
+hold on
+errorbar(matlabDates_nettest,download_nettest,B,'horizontal','-g*');
+hold on
+errorbar(matlabDates_speedtest,download_speedtest,C,'horizontal','-k.');
+hold off
+
+datetick('x','yyyy-mm-dd HH:MM:SS');                
+legend('Standard Deviation of Download Throughput (Boomerang)','Standard Deviation of Download Throughput (NetTest)','Standard Deviation of Download Throughput (Speedtest)')
+title('Standard Deviation of Download Throughput per test Type for Opera')
+xlabel('Time (yyyy-mm-dd HH:MM:SS)')
+ylabel('Mbps')

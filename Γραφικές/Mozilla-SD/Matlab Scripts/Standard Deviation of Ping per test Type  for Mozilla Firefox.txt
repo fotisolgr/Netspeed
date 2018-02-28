@@ -1,0 +1,73 @@
+excelDates_boomerang = xlsread('Mozilla-SD.xls', 'A2:A140');
+matlabDates_boomerang = datenum('30-Dec-1899') + excelDates_boomerang;
+datestr(matlabDates_boomerang, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_nettest = xlsread('Mozilla-SD.xls', 'A141:A281');
+matlabDates_nettest = datenum('30-Dec-1899') + excelDates_nettest;
+datestr(matlabDates_nettest, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_ookla = xlsread('Mozilla-SD.xls', 'A282:A406');
+matlabDates_ookla = datenum('30-Dec-1899') + excelDates_ookla;
+datestr(matlabDates_ookla, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_speedtest = xlsread('Mozilla-SD.xls', 'A407:A544');
+matlabDates_speedtest = datenum('30-Dec-1899') + excelDates_speedtest;
+datestr(matlabDates_speedtest, 'yyyy-mm-dd HH:MM:SS');
+
+ping_boomerang = xlsread('Mozilla-SD.xls', 'D2:D140');
+ping_nettest = xlsread('Mozilla-SD.xls', 'D141:D281');
+ping_ookla = xlsread('Mozilla-SD.xls', 'D282:D406');
+ping_speedtest = xlsread('Mozilla-SD.xls', 'D407:D544');;
+
+mean_ping_ookla = mean(ping_ookla);
+
+%========================================================================================
+square_distance_boomerang = zeros(139,1);
+
+for n = 1:139
+square_distance_boomerang(n) = (ping_boomerang(n)-mean_ping_ookla)^2;
+end
+
+sum_square_distance_boomerang = 0.0;
+for n = 1:139
+sum_square_distance_boomerang = sum_square_distance_boomerang+square_distance_boomerang(n);
+end
+%========================================================================================
+square_distance_nettest = zeros(141,1);
+
+for n = 1:141
+square_distance_nettest(n) = (ping_nettest(n)-mean_ping_ookla)^2;
+end
+
+sum_square_distance_nettest = 0.0;
+for n = 1:141
+sum_square_distance_nettest = sum_square_distance_nettest+square_distance_nettest(n);
+end
+%========================================================================================
+square_distance_speedtest = zeros(138,1);
+
+for n = 1:138
+square_distance_speedtest(n) = (ping_speedtest(n)-mean_ping_ookla)^2;
+end
+
+sum_square_distance_speedtest = 0.0;
+for n = 1:138
+sum_square_distance_speedtest = sum_square_distance_speedtest+square_distance_speedtest(n);
+end
+%========================================================================================
+
+A = sqrt(sum_square_distance_boomerang/139)*ones(size(matlabDates_boomerang)); %Std boomerang
+B = sqrt(sum_square_distance_nettest/141)*ones(size(matlabDates_nettest)); %Std nettest
+C = sqrt(sum_square_distance_speedtest/138)*ones(size(matlabDates_speedtest)); %Std speedtest
+errorbar(matlabDates_boomerang,ping_boomerang,A,'horizontal','-ro');
+hold on
+errorbar(matlabDates_nettest,ping_nettest,B,'horizontal','-g*');
+hold on
+errorbar(matlabDates_speedtest,ping_speedtest,C,'horizontal','-k.');
+hold off
+
+datetick('x','yyyy-mm-dd HH:MM:SS');                
+legend('Standard Deviation of Ping (Boomerang)','Standard Deviation of Ping (NetTest)','Standard Deviation of Ping (Speedtest)')
+title('Standard Deviation of Ping per test Type for Mozilla Firefox')
+xlabel('Time (yyyy-mm-dd HH:MM:SS)')
+ylabel('Ping(ms)')
