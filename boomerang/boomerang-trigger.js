@@ -1,6 +1,6 @@
 BOOMR.init({
                 
-  user_ip: 'your IP',
+  user_ip: 'agentIP',
   BW: {
 	base_url: 'images/',
         block_beacon: true
