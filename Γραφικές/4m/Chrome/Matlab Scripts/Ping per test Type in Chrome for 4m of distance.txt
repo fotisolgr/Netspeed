@@ -1,0 +1,36 @@
+excelDates_boomerang = xlsread('Chrome(4m).xls', 'A2:A27');
+matlabDates_boomerang = datenum('30-Dec-1899') + excelDates_boomerang;
+datestr(matlabDates_boomerang, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_nettest = xlsread('Chrome(4m).xls', 'A28:A52');
+matlabDates_nettest = datenum('30-Dec-1899') + excelDates_nettest;
+datestr(matlabDates_nettest, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_ookla = xlsread('Chrome(4m).xls', 'A53:A77');
+matlabDates_ookla = datenum('30-Dec-1899') + excelDates_ookla;
+datestr(matlabDates_ookla, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_speedtest = xlsread('Chrome(4m).xls', 'A78:A102');
+matlabDates_speedtest = datenum('30-Dec-1899') + excelDates_speedtest;
+datestr(matlabDates_speedtest, 'yyyy-mm-dd HH:MM:SS');
+
+ping_boomerang = xlsread('Chrome(4m).xls', 'D2:D27');
+ping_nettest = xlsread('Chrome(4m).xls', 'D28:D52');
+ping_ookla = xlsread('Chrome(4m).xls', 'D53:D77');
+ping_speedtest = xlsread('Chrome(4m).xls', 'D78:D102');
+
+
+plot(matlabDates_boomerang, ping_boomerang,'-ro','MarkerIndices',1:1:length(matlabDates_boomerang));     
+hold on
+plot(matlabDates_nettest, ping_nettest,'-g*','MarkerIndices',1:1:length(matlabDates_nettest));      
+hold on
+plot(matlabDates_ookla, ping_ookla,'-bs','MarkerIndices',1:1:length(matlabDates_ookla));     
+hold on
+plot(matlabDates_speedtest, ping_speedtest,'-k.','MarkerIndices',1:1:length(matlabDates_speedtest));
+hold off 
+datetick('x','HH:MM:SS');                
+legend('Ping (Boomerang)','Ping (NetTest)','Ping (Ookla)','Ping (Speedtest)')
+title('Ping per test Type in Chrome for 4m of distance')
+xlabel('Time (HH:MM:SS)')
+ylabel('Ping (ms)')
+
