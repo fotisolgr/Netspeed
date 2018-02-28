@@ -1,0 +1,36 @@
+excelDates_boomerang = xlsread('2m.xls', 'A2:A76');
+matlabDates_boomerang = datenum('30-Dec-1899') + excelDates_boomerang;
+datestr(matlabDates_boomerang, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_nettest = xlsread('2m.xls', 'A77:A152');
+matlabDates_nettest = datenum('30-Dec-1899') + excelDates_nettest;
+datestr(matlabDates_nettest, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_ookla = xlsread('2m.xls', 'A153:A227');
+matlabDates_ookla = datenum('30-Dec-1899') + excelDates_ookla;
+datestr(matlabDates_ookla, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_speedtest = xlsread('2m.xls', 'A228:A305');
+matlabDates_speedtest = datenum('30-Dec-1899') + excelDates_speedtest;
+datestr(matlabDates_speedtest, 'yyyy-mm-dd HH:MM:SS');
+
+ping_boomerang = xlsread('2m.xls', 'D2:D76');
+ping_nettest = xlsread('2m.xls', 'D77:D152');
+ping_ookla = xlsread('2m.xls', 'D153:D227');
+ping_speedtest = xlsread('2m.xls', 'D228:D305');
+
+
+plot(matlabDates_boomerang, ping_boomerang,'-ro','MarkerIndices',1:1:length(matlabDates_boomerang));     
+hold on
+plot(matlabDates_nettest, ping_nettest,'-g*','MarkerIndices',1:1:length(matlabDates_nettest));      
+hold on
+plot(matlabDates_ookla, ping_ookla,'-bs','MarkerIndices',1:1:length(matlabDates_ookla));     
+hold on
+plot(matlabDates_speedtest, ping_speedtest,'-k.','MarkerIndices',1:1:length(matlabDates_speedtest));
+hold off 
+datetick('x','yyyy-mm-dd HH:MM:SS');                
+legend('Ping (Boomerang)','Ping (NetTest)','Ping (Ookla)','Ping (Speedtest)')
+title('Ping per test Type for 2m of distance')
+xlabel('Time (yyyy-mm-dd HH:MM:SS)')
+ylabel('Ping (ms)')
+

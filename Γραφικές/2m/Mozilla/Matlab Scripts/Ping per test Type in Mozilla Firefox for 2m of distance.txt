@@ -1,0 +1,36 @@
+excelDates_boomerang = xlsread('Mozilla(2m).xls', 'A2:A27');
+matlabDates_boomerang = datenum('30-Dec-1899') + excelDates_boomerang;
+datestr(matlabDates_boomerang, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_nettest = xlsread('Mozilla(2m).xls', 'A28:A53');
+matlabDates_nettest = datenum('30-Dec-1899') + excelDates_nettest;
+datestr(matlabDates_nettest, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_ookla = xlsread('Mozilla(2m).xls', 'A54:A78');
+matlabDates_ookla = datenum('30-Dec-1899') + excelDates_ookla;
+datestr(matlabDates_ookla, 'yyyy-mm-dd HH:MM:SS');
+
+excelDates_speedtest = xlsread('Mozilla(2m).xls', 'A79:A104');
+matlabDates_speedtest = datenum('30-Dec-1899') + excelDates_speedtest;
+datestr(matlabDates_speedtest, 'yyyy-mm-dd HH:MM:SS');
+
+ping_boomerang = xlsread('Mozilla(2m).xls', 'D2:D27');
+ping_nettest = xlsread('Mozilla(2m).xls', 'D28:D53');
+ping_ookla = xlsread('Mozilla(2m).xls', 'D54:D78');
+ping_speedtest = xlsread('Mozilla(2m).xls', 'D79:D104');
+
+
+plot(matlabDates_boomerang, ping_boomerang,'-ro','MarkerIndices',1:1:length(matlabDates_boomerang));     
+hold on
+plot(matlabDates_nettest, ping_nettest,'-g*','MarkerIndices',1:1:length(matlabDates_nettest));      
+hold on
+plot(matlabDates_ookla, ping_ookla,'-bs','MarkerIndices',1:1:length(matlabDates_ookla));     
+hold on
+plot(matlabDates_speedtest, ping_speedtest,'-k.','MarkerIndices',1:1:length(matlabDates_speedtest));
+hold off 
+datetick('x','HH:MM:SS');                
+legend('Ping (Boomerang)','Ping (NetTest)','Ping (Ookla)','Ping (Speedtest)')
+title('Ping per test Type in Mozilla Firefox for 2m of distance')
+xlabel('Time (HH:MM:SS)')
+ylabel('Ping (ms)')
+
