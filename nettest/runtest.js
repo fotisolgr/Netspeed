@@ -8,7 +8,6 @@ var download_throughput;
 var upload_throughput;
 var local_ping;
 var agent_ip = document.getElementById("settings").getAttribute("agentIp");
-var agent_port = document.getElementById("settings").getAttribute("agentPort");
 if (typeof document.getElementById("settings").getAttribute("imagesLocation") === 'undefined' || document.getElementById("settings").getAttribute("imagesLocation") == '') {
 	var images_location = "https://vm3-gn3-sa2t5.vm.grnet.gr/wifimon/images/";
 }else{
