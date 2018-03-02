@@ -11,7 +11,6 @@
   var application = "boomerang";
   var device = "";
   var agent_ip = document.getElementById("settings").getAttribute("agentIp");
-  var agent_port = document.getElementById("settings").getAttribute("agentPort");
 //--------------------------------------------
 //Prosdiorismos topothesias eikonwn
 
