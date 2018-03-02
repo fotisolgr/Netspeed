@@ -10,6 +10,21 @@
   var device = "";
   var agent_ip = document.getElementById("settings").getAttribute("agentIp");
 //-----------------------------------------------------------------------------------------------------------------
+BOOMR.init({
+                
+  user_ip: 'agentIP',
+  BW: {
+	base_url: 'images/',
+        block_beacon: true
+
+      },
+  RT: {
+	cookie: 'RT',
+      }
+              
+});
+
+
 BOOMR.subscribe('before_beacon', function(o) {
 
 if(o.lat){
