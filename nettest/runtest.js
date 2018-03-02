@@ -8,10 +8,16 @@ var download_throughput;
 var upload_throughput;
 var local_ping;
 var agent_ip = document.getElementById("settings").getAttribute("agentIp");
+var agent_port = document.getElementById("settings").getAttribute("agentPort");
 if (typeof document.getElementById("settings").getAttribute("imagesLocation") === 'undefined' || document.getElementById("settings").getAttribute("imagesLocation") == '') {
 	var images_location = "https://vm3-gn3-sa2t5.vm.grnet.gr/wifimon/images/";
 }else{
 	var images_location = document.getElementById("settings").getAttribute("imagesLocation");
+}
+if (typeof document.getElementById("settings").getAttribute("testtool") === 'undefined' || document.getElementById("settings").getAttribute("testtool") == '') {
+	var test_tool = "N/A";
+}else{
+	var test_tool = document.getElementById("settings").getAttribute("testtool");
 }
 if (typeof document.getElementById("settings").getAttribute("cookieTimeInMinutes") === 'undefined' || document.getElementById("settings").getAttribute("cookieTimeInMinutes") == '') {
 	var cookie_time = 1.5;
@@ -22,10 +28,10 @@ var latitude;
 var longitude;
 var location_method;
 
-if (typeof document.getElementById("settings").getAttribute("hostingWebsite") === 'undefined' || document.getElementById("settings").getAttribute("hostingWebsite") == null || document.getElementById("settings").getAttribute("hostingWebsite") == '' || document.getElementById("settings").getAttribute("hostingWebsite") == 'https') {
-	var agent = "https://" + agent_ip + ":8443/wifimon/";
+if (document.getElementById("settings").getAttribute("hostingWebsite") == 'http') {
+	var agent = "http://" + agent_ip + ":" + agent_port+ "/wifimon/";
 }else{
-	var agent = "http://" + agent_ip + ":9000/wifimon/";
+	var agent = "https://" + agent_ip + ":" + agent_port+ "/wifimon/";
 }
 
 
@@ -84,7 +90,7 @@ function postToAgent() {
   location_method = "N/A";
  }
 
-var measurement = {downloadThroughput: download_throughput, uploadThroughput: upload_throughput, localPing: local_ping, latitude: latitude, longitude: longitude, locationMethod: location_method};
+var measurement = {downloadThroughput: download_throughput, uploadThroughput: upload_throughput, localPing: local_ping, latitude: latitude, longitude: longitude, locationMethod: location_method, testTool: test_tool};
 $.ajax({
 	type: "POST",
 	data :JSON.stringify(measurement),
