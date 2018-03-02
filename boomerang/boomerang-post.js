@@ -14,6 +14,7 @@ BOOMR.init({
                 
   user_ip: 'agentIP',
   BW: {
+	autorun: FALSE
 	base_url: 'images/',
         block_beacon: true
 
