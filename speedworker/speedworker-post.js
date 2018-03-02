@@ -15,7 +15,6 @@ var application = "speedtest_worker";
 var device = "";
 
 var agent_ip = document.getElementById("settings").getAttribute("agentIp");
-var agent_port = document.getElementById("settings").getAttribute("agentPort");
 var interval = setInterval(function(){w.postMessage("status");}.bind(this),100); //ask for status every 100ms
 //--------------------------------------------------------------------------------------------
 // Default xronos gia to cookie_time
